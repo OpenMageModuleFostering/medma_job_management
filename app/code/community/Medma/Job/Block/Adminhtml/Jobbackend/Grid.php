@@ -27,23 +27,22 @@ class Medma_Job_Block_Adminhtml_Jobbackend_Grid extends Mage_Adminhtml_Block_Wid
           'index'     => 'job_id',
       ));
 
-      $this->addColumn('applicant_name', array(
-          'header'    => Mage::helper('job')->__('Applicant Name'),
-          'align'     =>'left',
-          'index'     => 'applicant_name',
-      ));
-
-      $this->addColumn('applicant_email', array(
-			'header'    => Mage::helper('job')->__('Applicant Email'),
-			'width'     => '150px',
-			'index'     => 'applicant_email',
-      ));
-
-      $this->addColumn('applicant_phone', array(
-			'header'    => Mage::helper('job')->__('Applicant Phone'),
-			'width'     => '150px',
-			'index'     => 'applicant_phone',
-      ));
+			$this->addColumn('applicant_email', array(
+					'header'    => Mage::helper('job')->__('Email'),
+					'width'     => '150px',
+					'index'     => 'applicant_email',
+			));
+      
+			$newColumns = Mage::getModel('job/columns')->fetchColumns();
+			if($newColumns){
+					foreach($newColumns as $newColumn){
+								$this->addColumn($newColumn['fieldName'], array(
+									'header'    => Mage::helper('job')->__($newColumn['colName']),
+									'align'     =>'left',
+									'index'     => $newColumn['fieldName'],
+							));							
+					}
+			}
 
       $this->addColumn('filename', array(
 			'header'    => Mage::helper('job')->__('File Path'),
@@ -51,8 +50,8 @@ class Medma_Job_Block_Adminhtml_Jobbackend_Grid extends Mage_Adminhtml_Block_Wid
 			'index'     => 'filename',
       ));
 
-	  $this->addExportType('*/*/exportCsv', Mage::helper('job')->__('CSV'));
-	  $this->addExportType('*/*/exportXml', Mage::helper('job')->__('XML'));
+			$this->addExportType('*/*/exportCsv', Mage::helper('job')->__('CSV'));
+			$this->addExportType('*/*/exportXml', Mage::helper('job')->__('XML'));
 
       return parent::_prepareColumns();
   }

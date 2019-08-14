@@ -1,26 +1,6 @@
 <?php
 class Medma_Job_IndexController extends Mage_Core_Controller_Front_Action
 {
-
-	public function preDispatch(){
-		parent::preDispatch();
-
-        	#register domain event starts
-        
-		$generalEmail = Mage::getStoreConfig('trans_email/ident_general/email');
-          $domainName = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
-		
-
-		Mage::dispatchEvent('medma_domain_authentication',
-						array(
-						'email' => $generalEmail,
-                              'domain_name'=>$domainName,
-						)
-
-		);
-		#register domain event ends
-    }
-    
     public function IndexAction()
 	{
 	  $this->loadLayout();   
@@ -46,33 +26,34 @@ class Medma_Job_IndexController extends Mage_Core_Controller_Front_Action
 		if ($data = $this->getRequest()->getPost())
 		{
 			//echo "Test 1".$_FILES['filename']['name'];
-			if(isset($_FILES['filename']['name']) && $_FILES['filename']['name'] != '')
-			{
-			try {
-				/* Starting upload */	
-				$uploader = new Varien_File_Uploader('filename');
 			
-				/* Any extention would work */
-	       		$uploader->setAllowedExtensions(array('doc','docx','txt','odt'));
-				$uploader->setAllowRenameFiles(false);
+			try {
+				if(isset($_FILES['filename']['name']) && $_FILES['filename']['name'] != '')
+				{
+						/* Starting upload */	
+						$uploader = new Varien_File_Uploader('filename');
+			
+						/* Any extention would work */
+					  $uploader->setAllowedExtensions(array('doc','docx','txt','odt','pdf'));
+						$uploader->setAllowRenameFiles(false);
 
-				/*
-				 * Set the file upload mode 
-				 * false -> get the file directly in the specified folder
-				 * true -> get the file in the product like folders 
-				 *	(file.jpg will go in something like /media/f/i/file.jpg)
-				*/
-				$uploader->setFilesDispersion(false);
+						/*
+						 * Set the file upload mode 
+						 * false -> get the file directly in the specified folder
+						 * true -> get the file in the product like folders 
+						 *	(file.jpg will go in something like /media/f/i/file.jpg)
+						*/
+						$uploader->setFilesDispersion(false);
 					
-				// We set media as the upload dir
-				$path = Mage::getBaseDir('media') . DS .'cv';
-				$uploader->save($path, $_FILES['filename']['name'] );
+						// We set media as the upload dir
+						$path = Mage::getBaseDir('media') . DS .'cv';
+						$uploader->save($path, $_FILES['filename']['name'] );
 
-			    //this way the name is saved in DB
-	  			$data['filename'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'cv/'.$_FILES['filename']['name'];
+							//this way the name is saved in DB
+							$data['filename'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'cv/'.$_FILES['filename']['name'];
 
-				//echo $data['filename']; exit;
-
+						//echo $data['filename']; exit;
+				}
 				$model = Mage::getModel('job/jobmanagement');
 
 				$model->setData($data)
@@ -83,13 +64,16 @@ class Medma_Job_IndexController extends Mage_Core_Controller_Front_Action
 
 				}
 				catch (Exception $e) {
-		            Mage::getSingleton('core/session')->addError($e->getMessage());
-		            Mage::getSingleton('core/session')->setFormData($data);
-		            $this->_redirect('*/*/');
-		        }
+            Mage::getSingleton('core/session')->addError($e->getMessage().' File type should be doc/docx/txt/odt/pdf');
+            Mage::getSingleton('core/session')->setFormData($data);
+            $this->_redirect('*/*/');
+        }
 
-			}
 		}
 		$this->_redirect('*/*/');
+	}
+	public function testAction()
+	{
+			Mage::getModel('job/columns')->dropColumns('newcol_test_field2');
 	}
 }

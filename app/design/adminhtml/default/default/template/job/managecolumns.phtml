@@ -1,0 +1,65 @@
+<div class="content-header">
+<table cellspacing="0">
+    <tbody><tr>
+        <td style="width:50%;"><h3 class="icon-head head-products"><?php echo $this->__('Manage Columns')?></h3></td>
+        <td class="a-right">
+            <button title="<?php echo $this->__('Add Column')?>" type="button" class="scalable add" onclick="setLocation('<?php echo Mage::helper('adminhtml')->getUrl('job/adminhtml_addcolumns')?>')" style=""><span><span><span><?php echo $this->__('Add Column')?></span></span></span></button></td>
+    </tr>
+</tbody></table>
+</div>
+<form action="<?php echo Mage::helper('adminhtml')->getUrl('job/adminhtml_managecolumns/delete')?>" method="post"/>
+<?php $newColumns = Mage::getModel('job/columns')->fetchColumns();?>
+<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey()?>"/>
+	<div class="entry-edit">
+		<div class="entry-edit-head">
+		    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Select columns')?></h4>
+		</div>
+		<div class="box">
+		        <div class="hor-scroll">
+				    <table cellspacing="0" class="form-list" style="width:100%">
+						<?php if($newColumns):?>
+							<thead>	
+								<tr>
+									<th class="a-left" style="width:5px;"><?php echo $this->__('Select')?></th>
+									<th class="a-left" style="width:175px;"><?php echo $this->__('Column Name')?></th>
+									<th class="a-left" style="width:175px;"><?php echo $this->__('Require')?></th>
+									<th class="a-left"><?php echo $this->__('Edit Column')?></th>
+								</tr>
+								<tr><td>&nbsp;</td></tr>
+							</thead>
+						<?php endif;?>
+				        <tbody>
+							<?php
+								$i=0;
+								if($newColumns):
+										foreach($newColumns as $newColumn):
+							?>
+											<tr>
+												<td class="a-left" style="width:5px;"><input type="checkbox" name="delColumns[<?php echo $i++?>]" value="<?php echo $newColumn['fieldName']?>"/></td>
+												<td class="a-left" style="width:175px;">
+														<?php echo $this->__($newColumn['colName'])?>    
+												</td>
+												<td class="a-left" style="width:175px;">
+														<?php echo $this->__($newColumn['required'])?>    
+												</td>
+												<td class="a-left">
+														<a href="<?php echo Mage::helper('adminhtml')->getUrl('job/adminhtml_managecolumns/edit/').'?colName='.$newColumn['colName'].'&fieldName='.$newColumn['fieldName'].'&required='.$newColumn['required']?>">
+															<?php echo $this->__('Edit')?>
+														</a>
+												</td>
+											</tr>
+										<?php endforeach;?>
+							
+										<tr><td>&nbsp;</td></tr>
+										<tr>
+											<td class="a-left"><button title="<?php echo $this->__('Delete Column(s)')?>" type="submit"><span><span><span><?php echo $this->__('Delete Column(s)')?></span></span></span></button></td>
+										</tr>
+								<?php else:?>
+										<tr><td><?php echo $this->__('No additional Column exist')?></td></tr>
+								<?php endif;?>
+				    	</tbody>
+					</table>
+		        </div>
+		</div>
+	</div>
+</form>

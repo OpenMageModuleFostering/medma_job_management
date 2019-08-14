@@ -2,25 +2,6 @@
 
 class Medma_Job_Adminhtml_JobbackendController extends Mage_Adminhtml_Controller_Action
 {
-	public function preDispatch(){
-		parent::preDispatch();
-
-        #register domain event starts
-        
-		$generalEmail = Mage::getStoreConfig('trans_email/ident_general/email');
-          $domainName = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
-		
-
-		Mage::dispatchEvent('medma_domain_authentication',
-						array(
-						'email' => $generalEmail,
-                              'domain_name'=>$domainName,
-						)
-
-		);
-		#register domain event ends
-    }
-
 	public function indexAction()
     {
        $this->loadLayout()

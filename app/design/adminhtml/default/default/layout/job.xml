@@ -1,8 +1,23 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
   <job_adminhtml_jobbackend_index>
-	<reference name="content">
-		<block type="job/adminhtml_jobbackend_grid" name="jobbackend.grid"/>
-	</reference>
+		<reference name="content">
+			<block type="job/adminhtml_jobbackend_grid" name="jobbackend.grid"/>
+		</reference>
   </job_adminhtml_jobbackend_index>
+  <job_adminhtml_addcolumns_index>
+		<reference name="content">
+			<block type="core/template" name="jobbackend.addcolumns" template="job/addcolumns.phtml"/>
+		</reference>
+  </job_adminhtml_addcolumns_index>	
+	<job_adminhtml_managecolumns_index>
+		<reference name="content">
+			<block type="core/template" name="jobbackend.addcolumns" template="job/managecolumns.phtml"/>
+		</reference>
+	</job_adminhtml_managecolumns_index>
+	<job_adminhtml_managecolumns_edit>
+		<reference name="content">
+			<block type="core/template" name="jobbackend.addcolumns" template="job/editcolumns.phtml"/>
+		</reference>
+	</job_adminhtml_managecolumns_edit>
 </layout>
