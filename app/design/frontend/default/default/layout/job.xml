@@ -1,0 +1,23 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">
+    <default>
+		<reference name="top.links">
+		  <action method="addLink" translate="label title">
+		    <label>Career</label>
+		    <url>job</url>
+		    <title>Career</title>
+		    <prepare>true</prepare>
+		    <position>2</position>
+		  </action>
+		</reference>
+    </default>
+  <job_index_index>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="job/index" name="job_index" template="job/index.phtml"/>   
+    </reference>   
+  </job_index_index>   
+</layout>   
+	
