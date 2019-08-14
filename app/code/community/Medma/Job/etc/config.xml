@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Medma_Job>
-      <version>0.1.2</version>
+      <version>0.1.0</version>
     </Medma_Job>
   </modules>
   <frontend>
@@ -91,11 +91,6 @@
 			<sort_order>0</sort_order>
 			<action>job/adminhtml_jobbackend</action>
 		  </jobbackend>
-			<managecolumns module="job">
-			<title>Manage Columns</title>
-			<sort_order>1</sort_order>
-			<action>job/adminhtml_managecolumns</action>
-		  </managecolumns>
 		</children>
 	  </job>
 	</menu>
@@ -113,9 +108,6 @@
 				  <jobbackend translate="title">
 					<title>Job Management</title>
 				  </jobbackend>
-				  <managecolumns translate="title">
-					<title>Manage Columns</title>
-				  </managecolumns>
 			  </children>
 			</job>
 		  </children>
