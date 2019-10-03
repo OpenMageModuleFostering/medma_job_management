@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/medma_job_management",
+    "name": "OpenMageModuleFostering\/medma_job_management",
     "type": "magento-module",
     "license": "OSL-v3.0",
     "homepage": "",
     "description": "Medma offers a section for adding a careers option to your store",
     "authors": [
-    {
-        "name": "Medma Infomatix",
-        "email": "gaurav@medma.in"
-    }
-],
+        {
+            "name": "Medma Infomatix",
+            "email": "gaurav@medma.in"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
